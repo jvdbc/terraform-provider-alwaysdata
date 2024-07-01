@@ -1,0 +1,85 @@
+{
+    "version": "2.0.0",
+    "type": "shell",
+    "command": "go",
+    "cwd": "${workspaceFolder}",
+    "tasks": [
+		{
+			"label": "install",
+			"args": [
+				"install",
+				"-v",
+				"./..."
+			],
+			"group": "none",
+			"problemMatcher": [
+				"$go"
+			]
+		},
+		{
+			"label": "run",
+			"args": [
+				"run",
+				"${file}"
+			],
+			"group": "none",
+			"problemMatcher": [
+				"$go"
+			]
+		},
+		{
+			"label": "test",
+			"args": [
+				"test",
+				"-v",
+				"./..."
+			],
+			"group": "test"
+		},
+		{
+			"label": "build-step1",
+			"command": "zsh",
+			"args": [
+				"-c",
+				"install -d ${workspaceRoot}/build"
+			],
+			"group": "none",
+			"type": "shell"
+		},
+		{
+			"label": "build-step2",
+			"args": [
+				"build",
+				"-o",
+				"${workspaceRoot}/build/terraform-provider-alwaysdata"
+			],
+			"group": "none",
+			"problemMatcher": [
+				"$go"
+			]
+		},
+		{
+			"label": "build",
+			"dependsOn": [
+				"build-step1",
+				"build-step2"
+			],
+			"problemMatcher": [
+				"$go"
+			]
+		},
+		{
+			"label": "deploy",
+			"command": "zsh",
+			"args": [
+				"-c",
+				"install -v ${workspaceRoot}/build/terraform-provider-alwaysdata ~/.terraform.d/plugins/terraform.local/local/alwaysdata/0.0.1/darwin_arm64/"
+			],
+			"group": "build",
+			"type": "shell",
+			"dependsOn": [
+				"build"
+			]
+		}
+	],
+}
