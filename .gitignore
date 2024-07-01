@@ -1,21 +1,31 @@
+# Binaries
+terraform-provider-alwaysdata
 *.dll
 *.exe
 .DS_Store
 example.tf
+bin/
+
+# Builds
+build/
+
+# Terraform
 terraform.tfplan
 terraform.tfstate
-bin/
+./*.tfstate
+.terraform/
+.terraform.lock.hcl
+
 dist/
 modules-dev/
-/pkg/
+
 website/.vagrant
 website/.bundle
 website/build
 website/node_modules
 .vagrant/
+
 *.backup
-./*.tfstate
-.terraform/
 *.log
 *.bak
 *~
@@ -33,3 +43,4 @@ website/vendor
 
 # Keep windows files with windows line endings
 *.winfile eol=crlf
+
